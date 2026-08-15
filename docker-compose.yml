@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+
+  regression:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: autotest_fastapi
+    volumes:
+      - ./:/app
+    command: /bin/sh -c "ls -la && pytest -s --alluredir=allure-results"
+    environment:
+      - TEST_USERNAME=${TEST_USERNAME}
+      - TEST_PASSWORD=${TEST_PASSWORD}
+
