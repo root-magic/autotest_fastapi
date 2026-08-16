@@ -1,16 +1,24 @@
 version: '3.8'
 
 services:
+  
+  app:
+    build: ./app_repo
+    ports:
+      - "8000:8000"
 
   regression:
     build:
       context: .
       dockerfile: Dockerfile
     image: autotest_fastapi
+    depends_on:
+      - app
     volumes:
       - ./:/app
-    command: /bin/sh -c "ls -la && pytest -s --alluredir=allure-results"
+    command: /bin/sh -c "sleep 5 && pytest -s --alluredir=allure-results"
     environment:
+      - HOST=http://app:8000/
       - TEST_USERNAME=${TEST_USERNAME}
       - TEST_PASSWORD=${TEST_PASSWORD}
 
