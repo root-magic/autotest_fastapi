@@ -1,6 +1,6 @@
 from selenium import webdriver
 import pytest
-from selenium.webdriver.edge.options import Options
+from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 
 
@@ -14,7 +14,7 @@ def driver(request):
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
 
-    driver = webdriver.Edge(options=options)
+    driver = webdriver.Chrome(options=options)
     request.cls.driver = driver
     yield driver
     driver.quit()
